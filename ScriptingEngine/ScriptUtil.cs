@@ -25,7 +25,7 @@ namespace ScriptingEngine
         /// </summary>
         /// <param name="transaction">The transaction to execute.</param>
         /// <returns></returns>
-        public static IScriptResult submitTransaction(ScriptTransaction transaction)
+        public static IScriptResult SubmitTransaction(ScriptTransaction transaction)
         {
             return null;        // so it'll compile.
         }

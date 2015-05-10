@@ -5,12 +5,12 @@ using ScriptingEngine;
 namespace GameDataManagerTests
 {
     [TestClass]
-    public class ScriptTransactionTests
+    public class ScriptUtilTests
     {
         [TestMethod]
-        public void Initialization()
+        public void SubmitTransaction()
         {
-            
+            Assert.IsNull(ScriptUtil.SubmitTransaction(null));
         }
     }
 }
