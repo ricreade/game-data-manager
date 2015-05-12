@@ -47,11 +47,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IScriptInstance.cs" />
+    <Compile Include="IScriptInstanceTest.cs" />
     <Compile Include="IScriptResult.cs" />
+    <Content Include="scripts\testscript.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="ScriptTransaction.cs" />
     <Compile Include="ScriptUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

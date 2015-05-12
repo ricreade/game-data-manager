@@ -1,16 +1,14 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ScriptingEngine;
 
 namespace GameDataManagerTests
 {
     [TestClass]
-    public class ScriptUtilTests
+    public class UnitTest1
     {
         [TestMethod]
-        public void SubmitTransaction()
+        public void TestMethod1()
         {
-            Assert.IsNull(ScriptUtil.SubmitTransaction(null));
         }
     }
 }

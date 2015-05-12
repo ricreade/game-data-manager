@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CSScriptLibrary;
 
 namespace ScriptingEngine
 {
@@ -19,6 +20,51 @@ namespace ScriptingEngine
     /// </summary>
     public static class ScriptUtil
     {
+        /// <summary>
+        /// Singleton constructor to initialize the script engine search.
+        /// </summary>
+        static ScriptUtil()
+        {
+            CSScript.GlobalSettings.AddSearchDir(@"scripts\");
+        }
+
+        /// <summary>
+        /// Returns the IScriptInstance instantiated from the specified script.  
+        /// This method assumes that the script name and class name are identical.
+        /// The script name and class name do not need to have the same case.
+        /// </summary>
+        /// <param name="scriptName">The name of the script file to invoke.</param>
+        /// <returns>The instantiated IScriptInstance.</returns>
+        public static IScriptInstance GetScriptObject(string scriptName)
+        {
+            IScriptInstance inst;
+            string className = scriptName.Split(new char[] {'.'})[0];
+
+            inst = CSScript.Load(scriptName)
+                .CreateInstance(className, true)
+                .AlignToInterface<IScriptInstance>();
+
+            return inst;
+        }
+
+        /// <summary>
+        /// Returns the IScriptInstance instantiated from the specified
+        /// class contained in the specified script.
+        /// </summary>
+        /// <param name="scriptName">The name of the script file to invoke.</param>
+        /// <param name="className">The name of the class to instantiate.</param>
+        /// <returns>The instantiated IScriptInstance.</returns>
+        public static IScriptInstance GetScriptObject(string scriptName, string className)
+        {
+            IScriptInstance inst;
+
+            inst = CSScript.Load(scriptName)
+                .CreateInstance(className)
+                .AlignToInterface<IScriptInstance>();
+
+            return inst;
+        }
+
         /// <summary>
         /// Submits a transaction to the script engine.  The transaction should
         /// contain all the commands (with script references) to execute.
