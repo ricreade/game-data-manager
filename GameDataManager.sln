@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataManagerTests", "Gam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptingEngineTests", "ScriptingEngineTests\ScriptingEngineTests.csproj", "{D0A55E49-9FF2-4431-B25F-D6460B989950}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataStorageLayer", "..\..\..\Downloads\game-data-manager-master\game-data-manager-master\GameDataStorageLayer\GameDataStorageLayer.csproj", "{241F00BB-9458-4BAA-910E-D9A0612C3984}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDataStorageLayerTests", "..\..\..\Downloads\game-data-manager-master\game-data-manager-master\GameDataStorageLayerTests\GameDataStorageLayerTests.csproj", "{44FE3B1A-77AF-488B-9C9F-23477DCD31F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{D0A55E49-9FF2-4431-B25F-D6460B989950}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0A55E49-9FF2-4431-B25F-D6460B989950}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0A55E49-9FF2-4431-B25F-D6460B989950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{241F00BB-9458-4BAA-910E-D9A0612C3984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{241F00BB-9458-4BAA-910E-D9A0612C3984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{241F00BB-9458-4BAA-910E-D9A0612C3984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{241F00BB-9458-4BAA-910E-D9A0612C3984}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44FE3B1A-77AF-488B-9C9F-23477DCD31F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44FE3B1A-77AF-488B-9C9F-23477DCD31F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44FE3B1A-77AF-488B-9C9F-23477DCD31F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44FE3B1A-77AF-488B-9C9F-23477DCD31F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
