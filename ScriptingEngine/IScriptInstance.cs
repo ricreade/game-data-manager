@@ -11,6 +11,12 @@ namespace ScriptingEngine
     /// </summary>
     public interface IScriptInstance
     {
-        
+        /// <summary>
+        /// Passes a script request and its associated instructions to a specific
+        /// script and returns a result.
+        /// </summary>
+        /// <param name="request">The request to pass to the script.</param>
+        /// <returns>The result of the script operation.</returns>
+        ScriptResult ProcessTransactionRequest(IScriptRequest request);
     }
 }

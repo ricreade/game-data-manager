@@ -39,7 +39,7 @@ namespace ScriptingEngine
         {
             IScriptInstance inst;
             string className = scriptName.Split(new char[] {'.'})[0];
-
+            
             inst = CSScript.Load(scriptName)
                 .CreateInstance(className, true)
                 .AlignToInterface<IScriptInstance>();

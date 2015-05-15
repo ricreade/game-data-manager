@@ -1,22 +1,21 @@
 ﻿using ScriptingEngine;
 using System.Collections.Generic;
-public class TestScript : IScriptInstanceTest
+
+public class MismatchedClassName : IScriptInstanceTest
 {
-    private List<string> _list;
     public string GetTestValue()
     {
-        return "Returned value from TestScript!";
+        return "some value";
     }
 
     public void StoreTestObject(List<string> list)
     {
-        _list = list;
-        _list.Add("hello");
+        //nothing happens
     }
 
     public IList<string> RetrieveTestObject()
     {
-        return _list;
+        return null;
     }
 
     public ScriptResult ProcessTransactionRequest(IScriptRequest request)

@@ -12,5 +12,7 @@ namespace ScriptingEngine
     public interface IScriptInstanceTest : IScriptInstance
     {
         string GetTestValue();
+        void StoreTestObject(List<string> list);
+        IList<string> RetrieveTestObject();
     }
 }

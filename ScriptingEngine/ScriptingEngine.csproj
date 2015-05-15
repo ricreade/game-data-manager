@@ -49,10 +49,16 @@
   <ItemGroup>
     <Compile Include="IScriptInstance.cs" />
     <Compile Include="IScriptInstanceTest.cs" />
+    <Compile Include="IScriptRequest.cs" />
     <Compile Include="IScriptResult.cs" />
     <Content Include="scripts\testscript.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="scripts\testClassMismatch.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="IScriptTransaction.cs" />
+    <Compile Include="ScriptResult.cs" />
     <Compile Include="ScriptTransaction.cs" />
     <Compile Include="ScriptUtil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

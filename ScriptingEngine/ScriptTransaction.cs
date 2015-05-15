@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 namespace ScriptingEngine
 {
     /// <summary>
+    /// I'm probably going to eliminate this.
+    /// 
     /// Encapsulates a transaction to submit to the script engine.
     /// This might not be the way we ultimately represent a script request,
     /// but it'll serve as a stand-in for the time being.  This object should
