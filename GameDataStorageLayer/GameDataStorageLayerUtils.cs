@@ -15,7 +15,13 @@ namespace GameDataStorageLayer
             FileSystem = 2
         };
 
-
+        public enum LogLevels
+        {
+            Error = 1,
+            Debug = 2,
+            Fatal = 3,
+            Info = 4
+        };
 
     }
 }

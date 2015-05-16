@@ -3,27 +3,41 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.Concurrent;
+
 
 namespace GameDataStorageLayer
 {
-    public class GameDataStorageObject
+    [Serializable()]
+    public class GameDataStorageObject : BaseGameDataStorageLayer
     {
-        private Hashtable attributeData;
-        private Hashtable descriptorData;
-        private Hashtable modifiedData;
-        private Hashtable extraData;
+        private ConcurrentDictionary<string, BaseGameObject> attributeData;
+        private ConcurrentDictionary<string, BaseGameObject> descriptorData;
+        private ConcurrentDictionary<string, BaseGameObject> modifiedData;
+        private ConcurrentDictionary<string, BaseGameObject> extraData;
+        private int totalByteLength;
 
         public GameDataStorageObject(byte[] serializedGameData)
         {
-            attributeData = new Hashtable();
-            descriptorData = new Hashtable();
-            modifiedData = new Hashtable();
-            extraData = new Hashtable();
+            attributeData = new ConcurrentDictionary<string, BaseGameObject>();
+            descriptorData = new ConcurrentDictionary<string, BaseGameObject>();
+            modifiedData = new ConcurrentDictionary<string, BaseGameObject>();
+            extraData = new ConcurrentDictionary<string, BaseGameObject>();
+            this.totalByteLength = 0;
+        }
+
+        public int getByteLengt()
+        {
+            return this.totalByteLength;
         }
 
         public bool modifyAttributeData(BaseGameObject obj)
         {
             return true;
         }
+
+
+
+
     }
 }
