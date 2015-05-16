@@ -18,7 +18,7 @@ public class MismatchedClassName : IScriptInstanceTest
         return null;
     }
 
-    public ScriptResult ProcessTransactionRequest(IScriptRequest request)
+    public ScriptResult ProcessRequest(IScriptRequest request)
     {
         return null;
     }

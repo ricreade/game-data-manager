@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace ScriptingEngine
 {
     /// <summary>
-    /// I'm probably going to eliminate this.
+    /// I am planning to eliminate this interface as an abstract class
+    /// more effectively fulfills this role.
     /// 
     /// An interface to represent the result of a script transaction.
     /// I figure a simple boolean or string is unlikely to provide all
@@ -16,8 +17,13 @@ namespace ScriptingEngine
     public interface IScriptResult
     {
         /// <summary>
-        /// Returns the result of the script request after processing.
+        /// Returns the message associated with the result.
         /// </summary>
-        string Result { get; }
+        string Message { get; }
+
+        /// <summary>
+        /// Returns the result type enumeration value for this request.
+        /// </summary>
+        ScriptResult.ResultType Result { get; }
     }
 }

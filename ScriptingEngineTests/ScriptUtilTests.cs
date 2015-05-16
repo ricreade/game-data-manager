@@ -115,5 +115,108 @@ namespace GameDataManagerTests
             Assert.IsNotNull(script);
             Assert.AreEqual<string>(expectedResult, script.GetTestValue());
         }
+
+        /// <summary>
+        /// Verifies that the ScriptUtil factory method returns a script request
+        /// with appropriate values if the instruction and script name (but not
+        /// class name) are provided.
+        /// </summary>
+        [TestMethod]
+        public void TestCreateScriptRequestNoClassName()
+        {
+            string instr = "This is an instruction with a pre-defined statement.";
+            string script = "This is a script file name.";
+
+            IScriptRequest request = ScriptUtil.CreateRequest(instr, script);
+
+            Assert.AreEqual<string>(instr, request.Instruction);
+            Assert.AreEqual<string>(script, request.ScriptName);
+            Assert.IsNull(request.ScriptClassName);
+        }
+
+        /// <summary>
+        /// Verifies that the ScriptUtil factory method returns a script request
+        /// with appropriate values if the instruction, script name, and class 
+        /// name are provided.
+        /// </summary>
+        [TestMethod]
+        public void TestCreateScriptRequestClassName()
+        {
+            string instr = "My instruction.";
+            string script = "myscript.cs";
+            string classname = "MyScript";
+
+            IScriptRequest request = ScriptUtil.CreateRequest(instr, script, classname);
+
+            Assert.AreEqual<string>(instr, request.Instruction);
+            Assert.AreEqual<string>(script, request.ScriptName);
+            Assert.AreEqual<string>(classname, request.ScriptClassName);
+        }
+
+        /// <summary>
+        /// Verifies that the ScriptUtil factory method returns a script result
+        /// with appropriate values.
+        /// </summary>
+        [TestMethod]
+        public void TestCreateScriptResult()
+        {
+            ScriptResult.ResultType resulttype = ScriptResult.ResultType.Success;
+            string message = "My result message.";
+
+            IScriptResult result = ScriptUtil.CreateResult(resulttype, message);
+
+            Assert.AreEqual<ScriptResult.ResultType>(resulttype, result.Result);
+            Assert.AreEqual<string>(message, result.Message);
+        }
+
+        /// <summary>
+        /// Verifies that the ScriptUtil factory method returns a functional transaction
+        /// object and that the transaction object add and remove methods work as
+        /// expected.
+        /// </summary>
+        [TestMethod]
+        public void TestCreateTransaction()
+        {
+            bool rollback = true;
+            string instr = "My instruction.";
+            string script = "script.cs";
+            string className = "Script";
+            string instr2 = "My other instruction.";
+            IScriptRequest request;
+
+            IScriptTransaction trans = ScriptUtil.CreateTransaction(rollback);
+
+            Assert.AreEqual<bool>(rollback, trans.RollbackOnFail);
+            Assert.IsNotNull(trans.Requests);
+            Assert.AreEqual<int>(0, trans.Requests.Count);
+
+            trans.AddRequest(ScriptUtil.CreateRequest(instr, script, className));
+
+            Assert.AreEqual<int>(1, trans.Requests.Count);
+
+            request = trans.GetRequest(false);
+
+            Assert.AreEqual<string>(instr, request.Instruction);
+            Assert.AreEqual<int>(1, trans.Requests.Count);
+
+            trans.AddRequest(ScriptUtil.CreateRequest(instr2, script, className));
+            request = trans.GetRequest(true);
+
+            Assert.AreEqual<string>(instr, request.Instruction);
+            Assert.AreEqual<int>(1, trans.Requests.Count);
+
+            request = trans.GetRequest();
+
+            Assert.AreEqual<string>(instr2, request.Instruction);
+            Assert.AreEqual<int>(0, trans.Requests.Count);
+
+            request = trans.GetRequest();
+
+            Assert.IsNull(request);
+
+            request = trans.GetRequest(true);
+
+            Assert.IsNull(request);
+        }
     }
 }

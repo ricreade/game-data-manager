@@ -15,7 +15,7 @@ namespace ScriptingEngine
     /// rolled back if any instruction fails.  Requests are organized into a
     /// queue.
     /// </summary>
-    interface IScriptTransaction
+    public interface IScriptTransaction
     {
         /// <summary>
         /// Property to indicate whether the transaction should roll back
@@ -24,12 +24,23 @@ namespace ScriptingEngine
         bool RollbackOnFail { get; set; }
 
         /// <summary>
+        /// Returns all requests currently stored in the transaction.
+        /// </summary>
+        Queue<IScriptRequest> Requests { get; }
+
+        /// <summary>
         /// Adds a request to the transaction.  The request is added to the end
         /// of the request queue.
         /// </summary>
         /// <param name="request">The request to add to the queue.</param>
         /// <returns>True if the request was successfully added.</returns>
         bool AddRequest(IScriptRequest request);
+
+        /// <summary>
+        /// Executes the transaction by invoking the requests it contains.
+        /// </summary>
+        /// <returns>The result of the transaction.</returns>
+        IScriptResult ExecuteTransaction();
 
         /// <summary>
         /// Returns the request at the beginning of the queue.  The request is
@@ -45,11 +56,5 @@ namespace ScriptingEngine
         /// from the queue.</param>
         /// <returns>The request at the beginning of the queue.</returns>
         IScriptRequest GetRequest(bool remove);
-
-        /// <summary>
-        /// Returns all requests currently stored in the transaction.
-        /// </summary>
-        /// <returns>The queue of transactions.</returns>
-        Queue<IScriptRequest> GetRequests();
     }
 }

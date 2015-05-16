@@ -12,19 +12,21 @@ namespace ScriptingEngine
     public interface IScriptRequest
     {
         /// <summary>
-        /// Returns or sets the string instruction that provides the foundation 
+        /// Returns the string instruction that provides the foundation 
         /// for this request.
         /// </summary>
-        string Instruction { get; set; }
+        string Instruction { get; }
 
         /// <summary>
-        /// Returns or sets the name of the script to invoke.
+        /// Returns the name of the script to invoke.
         /// </summary>
-        string ScriptName { get; set; }
+        string ScriptName { get; }
 
         /// <summary>
-        /// Returns or sets the name of the script class to instantiate.
+        /// Returns the name of the script class to instantiate.
         /// </summary>
-        string ScriptClassName { get; set; }
+        string ScriptClassName { get; }
+
+
     }
 }

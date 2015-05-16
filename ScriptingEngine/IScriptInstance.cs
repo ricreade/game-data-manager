@@ -17,6 +17,6 @@ namespace ScriptingEngine
         /// </summary>
         /// <param name="request">The request to pass to the script.</param>
         /// <returns>The result of the script operation.</returns>
-        ScriptResult ProcessTransactionRequest(IScriptRequest request);
+        ScriptResult ProcessRequest(IScriptRequest request);
     }
 }

@@ -19,7 +19,7 @@ public class TestScript : IScriptInstanceTest
         return _list;
     }
 
-    public ScriptResult ProcessTransactionRequest(IScriptRequest request)
+    public ScriptResult ProcessRequest(IScriptRequest request)
     {
         return null;
     }

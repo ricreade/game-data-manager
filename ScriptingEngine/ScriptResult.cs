@@ -9,9 +9,11 @@ namespace ScriptingEngine
     /// <summary>
     /// An abstract class to represent the result of a script transaction.
     /// I figure a simple boolean or string is unlikely to provide all
-    /// the required feedback.
+    /// the required feedback.  I am using an abstract class rather than
+    /// an interface because an interface cannot contain an enumeration
+    /// and the ResultType enumeration most logically belongs here.
     /// </summary>
-    public abstract class ScriptResult
+    public abstract class ScriptResult : IScriptResult
     {
         protected ResultType _result;
         protected string _msg;
