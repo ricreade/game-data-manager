@@ -54,10 +54,20 @@
   </Choose>
   <ItemGroup>
     <Compile Include="GameDataStorageLayerTests.cs" />
+    <Compile Include="GameDataStorageLayerTestUtils.cs" />
+    <Compile Include="GameDataStorageManagementTest.cs" />
+    <Compile Include="GameDataStorageObjectTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GameDataObjectUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameDataStorageLayer\GameDataStorageLayer.csproj">
+      <Project>{241f00bb-9458-4baa-910e-d9a0612c3984}</Project>
+      <Name>GameDataStorageLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

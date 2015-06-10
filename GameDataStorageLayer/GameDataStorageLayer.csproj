@@ -42,11 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseDataStorageObject.cs" />
     <Compile Include="BaseGameDataStorageLayer.cs" />
     <Compile Include="BaseGameObject.cs" />
     <Compile Include="GameDataStorageLayerUtils.cs" />
-    <Compile Include="GameDataStorageInterface.cs" />
-    <Compile Include="GameDataStorageLayer.cs" />
+    <Compile Include="GameDataStorageManagement.cs" />
+    <Compile Include="GameDataStorageManager.cs" />
     <Compile Include="GameDataStorageObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

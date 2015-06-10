@@ -23,5 +23,13 @@ namespace GameDataStorageLayer
             Info = 4
         };
 
+        public enum objectClassType
+        {
+            Attribute,
+            Descriptor,
+            Modified,
+            Extra
+        };
+
     }
 }

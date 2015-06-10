@@ -15,31 +15,38 @@ namespace GameDataStorageLayer
      * */
     public class GameDataStorageLayerManager : BaseGameDataStorageLayer
     {
-        private GameDataStorageInterface storageInterface = null;
+        private GameDataStorageManagement storageInterface = null;
         private ConcurrentDictionary<string, GameDataStorageObject> storageObjects;
         private GameDataStorageLayerUtils.DataStorageAreas dataAccessType;
 
         public GameDataStorageLayerManager()
         {
-            storageInterface = new GameDataStorageInterface();
+            storageInterface = new GameDataStorageManagement();
             this.dataAccessType = GameDataStorageLayerUtils.DataStorageAreas.None;
             this.storageObjects = null;
         }
 
         public GameDataStorageLayerManager(GameDataStorageLayerUtils.DataStorageAreas dataAccessType, string dataType, string dataLocation)
         {
-            storageInterface = new GameDataStorageInterface(dataAccessType, dataType, dataLocation);
+            storageInterface = new GameDataStorageManagement(dataAccessType, dataType, dataLocation);
             this.dataAccessType = dataAccessType;
             primeDataFromStorage();
-            this.storageObjects = storageInterface.getObject();
+            this.storageObjects = storageInterface.getAllObjects();
         }
 
-
+        /// <summary>
+        /// Call the data storage layer to prime the data into memory, this should only be done once.
+        /// </summary>
+        /// <returns>Boolean: true on success, false on failure</returns>
         private bool primeDataFromStorage()
         {
             return storageInterface.openData();
         }
 
+        /// <summary>
+        /// On shutdown, or after a lot of changes, we'll flush the data to the backing store.
+        /// We shouldn't need to re-sync after storage has been updated.
+        /// </summary>
         public void writeDataToStorage()
         {
             storageInterface.prepareToStoreObject(this.storageObjects);

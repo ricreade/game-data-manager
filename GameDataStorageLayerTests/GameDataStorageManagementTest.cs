@@ -4,14 +4,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace GameDataStorageLayerTests
 {
     [TestClass]
-    public class GameDataStorageLayerTests
+    public class GameDataStorageManagementTest
     {
-
-        public GameDataStorageLayerTests()
-        {
-
-        }
-
         [TestMethod]
         public void TestMethod1()
         {
