@@ -15,23 +15,23 @@ namespace GameDataStorageLayer
      * */
     public class GameDataStorageLayerManager : BaseGameDataStorageLayer
     {
-        private GameDataStorageManagement storageInterface = null;
+        private GameDataStorageManagement storageManagement = null;
         private ConcurrentDictionary<string, GameDataStorageObject> storageObjects;
         private GameDataStorageLayerUtils.DataStorageAreas dataAccessType;
 
         public GameDataStorageLayerManager()
         {
-            storageInterface = new GameDataStorageManagement();
+            storageManagement = new GameDataStorageManagement();
             this.dataAccessType = GameDataStorageLayerUtils.DataStorageAreas.None;
             this.storageObjects = null;
         }
 
         public GameDataStorageLayerManager(GameDataStorageLayerUtils.DataStorageAreas dataAccessType, string dataType, string dataLocation)
         {
-            storageInterface = new GameDataStorageManagement(dataAccessType, dataType, dataLocation);
+            storageManagement = new GameDataStorageManagement(dataAccessType, dataType, dataLocation);
             this.dataAccessType = dataAccessType;
             primeDataFromStorage();
-            this.storageObjects = storageInterface.getAllObjects();
+            this.storageObjects = storageManagement.getAllObjects();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace GameDataStorageLayer
         /// <returns>Boolean: true on success, false on failure</returns>
         private bool primeDataFromStorage()
         {
-            return storageInterface.openData();
+            return storageManagement.openData();
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace GameDataStorageLayer
         /// </summary>
         public void writeDataToStorage()
         {
-            storageInterface.prepareToStoreObject(this.storageObjects);
+            storageManagement.prepareToStoreObject(this.storageObjects);
         }
     }
 }

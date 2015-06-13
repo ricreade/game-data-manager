@@ -49,7 +49,7 @@ namespace GameDataStorageLayerTests
         #endregion
 
         [TestMethod]
-        public void TestLoadAttributeData()
+        public void TestLoadandSearchAttributeData()
         {
             attributeData = GameDataStorageLayerTestUtils.fillAttributeObjectWithData();
             string keyToSearch = "testChar:attributes";
@@ -60,7 +60,7 @@ namespace GameDataStorageLayerTests
         }
 
         [TestMethod]
-        public void TestLoadmodifiedData()
+        public void TestLoadandSearchmodifiedData()
         {
             modifiedData = GameDataStorageLayerTestUtils.fillOtherDataObjectsWithData(GameDataStorageLayerUtils.objectClassType.Modified);
             string keyToSearch = "testChar:modifiedData";
@@ -71,7 +71,7 @@ namespace GameDataStorageLayerTests
         }
 
         [TestMethod]
-        public void TestLoadextraData()
+        public void TestLoadandSearchextraData()
         {
             extraData = GameDataStorageLayerTestUtils.fillOtherDataObjectsWithData(GameDataStorageLayerUtils.objectClassType.Extra);
             string keyToSearch = "testChar:extraData";
@@ -82,7 +82,7 @@ namespace GameDataStorageLayerTests
         }
 
         [TestMethod]
-        public void TestLoaddescriptorData()
+        public void TestLoadandSearchdescriptorData()
         {
             descriptorData = GameDataStorageLayerTestUtils.fillOtherDataObjectsWithData(GameDataStorageLayerUtils.objectClassType.Descriptor);
             string keyToSearch = "testChar:descriptorData";

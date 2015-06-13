@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 
 namespace GameDataStorageLayer
@@ -24,6 +25,30 @@ namespace GameDataStorageLayer
             modifiedData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>>();
             extraData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>>();
             this.totalByteLength = 0;
+        }
+
+        /// <summary>
+        /// Insert BaseGameDataStorageObject into a concurrent dictionary
+        /// </summary>
+        /// <typeparam name="TValue1">Templated value type for the first BaseGameDataStorageObject parameter</typeparam>
+        /// <typeparam name="TValue2">Templated value type for the second BaseGameDataStorageObject parameter</typeparam>
+        /// <param name="classType"></param>
+        /// <param name="objectToStore"></param>
+        /// <param name="key"></param>
+        public void insertDataFromSerializedObject<TValue1, TValue2>(GameDataStorageLayerUtils.objectClassType classType, BaseGameDataStorageObject<TValue1,TValue2> objectToStore, string key)
+        {
+
+        }
+
+        /// <summary>
+        /// Overridden insert for mulitple BaseGameDataStorageObjects into a concurrent dictionary
+        /// </summary>
+        /// <typeparam name="TValue1"></typeparam>
+        /// <typeparam name="TValue2"></typeparam>
+        /// <param name="objectsToStore"></param>
+        public void insertDataFromSerializedObject<TValue1, TValue2>(List<Tuple<GameDataStorageLayerUtils.objectClassType, Tuple<string,BaseGameDataStorageObject<TValue1, TValue2>>>> objectsToStore)
+        {
+
         }
 
         /// <summary>

@@ -8,6 +8,10 @@ using log4net;
 
 namespace GameDataStorageLayer
 {
+    /// <summary>
+    /// This is a base class so we can inherit logging, if we go a different logging pattern route
+    /// we can probably scrap this class.
+    /// </summary>
     public class BaseGameDataStorageLayer
     {
             private static readonly log4net.ILog log = log4net.LogManager.GetLogger
