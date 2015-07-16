@@ -1,30 +1,83 @@
 ﻿using System;
+using System.IO;
 using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-
+using System.Xml;
+using System.Xml.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace GameDataStorageLayer
 {
     [Serializable()]
     public class GameDataStorageObject : BaseGameDataStorageLayer
     {
-        private ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, int>>> attributeData;
-        private ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>> descriptorData;
-        private ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>> modifiedData;
-        private ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>> extraData;
-        private int totalByteLength;
+        private ConcurrentDictionary<string, BaseObject> characterData;
 
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="serializedGameData"></param>
         public GameDataStorageObject(byte[] serializedGameData)
         {
-            attributeData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string,int>>>();
-            descriptorData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string,string>>>();
-            modifiedData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>>();
-            extraData = new ConcurrentDictionary<string, BaseGameDataStorageObject<string, Tuple<string, string>>>();
-            this.totalByteLength = 0;
+            characterData = new ConcurrentDictionary<string, BaseObject>();
+
+            try
+            {
+                
+                string data = System.Text.Encoding.UTF8.GetString(serializedGameData);
+                BaseGameDataStorageObject<string, Tuple<string, string>> descriptors = new BaseGameDataStorageObject<string, Tuple<string, string>>(GameDataStorageLayerUtils.objectClassType.Descriptor);
+                BaseGameDataStorageObject<string, Tuple<string, string>> modifiedData = new BaseGameDataStorageObject<string, Tuple<string, string>>(GameDataStorageLayerUtils.objectClassType.Descriptor);
+                BaseGameDataStorageObject<string, Tuple<string, string>> extraData = new BaseGameDataStorageObject<string, Tuple<string, string>>(GameDataStorageLayerUtils.objectClassType.Descriptor);
+                BaseGameDataStorageObject<string, Tuple<string, int>> attributes = new BaseGameDataStorageObject<string, Tuple<string, int>>(GameDataStorageLayerUtils.objectClassType.Descriptor);
+                BaseGameDataStorageObject<string, Tuple<string, string>> inventoryData = new BaseGameDataStorageObject<string, Tuple<string, string>>(GameDataStorageLayerUtils.objectClassType.Descriptor);
+
+                string mydata = "";
+                XDocument xDoc = XDocument.Load(new StringReader(data));
+
+
+                var nameList = from el in xDoc.Root.Descendants("character").Elements("name")
+                            select el;
+
+
+                var dList = from el in xDoc.Root.Descendants().Elements("attributes").Elements("attribute")
+                            where ((string)el.Element("type") != "racial")
+                            select new
+                            {
+                                name = (string)el.Element("name"),
+                                bonus = (string)el.Element("bonus"),
+                                type = (string)el.Element("type")
+                            };
+
+                string attPathName = nameList.First().Value + ":attribute";
+                
+                foreach( var att in dList )
+                {
+                    Tuple<string, Tuple<string, int>> tData = new Tuple<string, Tuple<string, int>>(attPathName + ":" + att.type, new Tuple<string, int>(attPathName + ":" + att.name + ":" + att.type, Convert.ToInt32(att.bonus)));
+                    attributes.addTupleToList(tData);
+                }
+
+
+
+
+                Console.WriteLine("Hooray!");
+                
+
+            } catch(Exception ex)
+            {
+                string err = ex.Message;
+                Console.WriteLine(err);
+            }
+            //BaseGameDataStorageObject<string, Tuple<string,int>> x = new BaseGameDataStorageObject<string, Tuple<string,int>>(GameDataStorageLayerUtils.objectClassType.Attribute);
+            //Tuple<string, Tuple<string, int>> theData = new Tuple<string, Tuple<string, int>>("test1", new Tuple<string, int>("strength", 25));
+            //x.insertTupleAt(theData, 0, false);
+            //characterData.TryAdd("test", (BaseObject)x);
+            //Tuple<string, Tuple<string, string>> theData2 = new Tuple<string, Tuple<string, string>>("test1", new Tuple<string, string>("extra strength", "A lot of strength"));
+            //y.insertTupleAt(theData2, 0, false);
+            //characterData.TryAdd("testng", (BaseObject)y);
         }
 
         /// <summary>
@@ -76,28 +129,9 @@ namespace GameDataStorageLayer
             switch(type)
             {
                 case GameDataStorageLayerUtils.objectClassType.Attribute:
-                    if( attributeData.ContainsKey(key))
+                    if( characterData.ContainsKey(key))
                     {
-                        return (BaseGameObject<TValue1,TValue2>)attributeData[key];
-                    }
-                    break;
-                case GameDataStorageLayerUtils.objectClassType.Descriptor:
-                    if( descriptorData.ContainsKey(key))
-                    {
-                        return (BaseGameObject<TValue1, TValue2>)descriptorData[key];
-                    }
-                    break;
-                case GameDataStorageLayerUtils.objectClassType.Extra:
-                    if(modifiedData.ContainsKey(key))
-                    {
-                        return (BaseGameObject<TValue1, TValue2>)extraData[key];
-                    }
-                    break;
-
-                case GameDataStorageLayerUtils.objectClassType.Modified:
-                    if(modifiedData.ContainsKey(key))
-                    {
-                        return (BaseGameObject<TValue1,TValue2>)modifiedData[key];
+                        return (BaseGameObject<TValue1,TValue2>)characterData[key];
                     }
                     break;
             }
@@ -112,18 +146,7 @@ namespace GameDataStorageLayer
         /// <returns>Interface to dictionary.</returns>
         public IDictionary getDataFromStorageObject(GameDataStorageLayerUtils.objectClassType type)
         {
-            switch (type)
-            {
-                case GameDataStorageLayerUtils.objectClassType.Attribute:
-                    return attributeData;
-                case GameDataStorageLayerUtils.objectClassType.Descriptor:
-                    return descriptorData;
-                case GameDataStorageLayerUtils.objectClassType.Extra:
-                    return extraData;
-                case GameDataStorageLayerUtils.objectClassType.Modified:
-                    return modifiedData;
-            }
-            return null;
+            return characterData;
         }
     }
 }

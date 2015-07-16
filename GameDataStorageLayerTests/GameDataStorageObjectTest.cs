@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
@@ -13,6 +15,7 @@ namespace GameDataStorageLayerTests
     [TestClass]
     public class GameDataStorageObjectTest
     {
+        
         private ConcurrentDictionary<string,BaseGameDataStorageObject<string, Tuple<string, int>>> attributeData;
         private ConcurrentDictionary<string,BaseGameDataStorageObject<string, Tuple<string, string>>> modifiedData;
         private ConcurrentDictionary<string,BaseGameDataStorageObject<string, Tuple<string, string>>> extraData;
@@ -90,6 +93,32 @@ namespace GameDataStorageLayerTests
             Assert.AreEqual("testChar:descriptorData:Demon", t.Item1);
             Assert.AreEqual("Demonic Being", t.Item2.Item2);
             Assert.AreEqual("testChar/descriptorData/Demon", t.Item2.Item1);
+        }
+
+        [TestMethod]
+        public void tryInstantiateGameObject()
+        {
+
+            byte[] d = GameDataStorageLayerTestUtils.getSampleCharacterFromXML();
+            
+            GameDataStorageObject gds = new GameDataStorageObject(d);
+            ConcurrentDictionary<string, BaseObject> cd = (ConcurrentDictionary<string, BaseObject>)gds.getDataFromStorageObject(GameDataStorageLayerUtils.objectClassType.Attribute);
+            foreach(KeyValuePair<string,BaseObject> kv in cd)
+            {
+                string type = kv.Value.getClassType();
+                if(type == GameDataStorageLayerUtils.objectClassType.Attribute.ToString())
+                {
+                    BaseGameDataStorageObject<string, Tuple<string, int>> bgso = (BaseGameDataStorageObject<string, Tuple<string, int>>)kv.Value;
+                    Tuple<string, Tuple<string,int>> x = bgso.getValueAt(0);
+                    Console.WriteLine("Hello world");
+                }
+                else if(type == GameDataStorageLayerUtils.objectClassType.Descriptor.ToString())
+                {
+                    BaseGameDataStorageObject<string, Tuple<string, string>> bgso = (BaseGameDataStorageObject<string, Tuple<string, string>>)kv.Value;
+                    Tuple<string, Tuple<string, string>> x = bgso.getValueAt(0);
+                    Console.WriteLine("Hello world");
+                }
+            }
         }
     }
 }

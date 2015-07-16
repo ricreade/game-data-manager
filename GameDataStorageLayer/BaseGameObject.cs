@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GameDataStorageLayer
 {
-    public interface BaseGameObject<DataType1, DataType2>
+    public interface BaseGameObject<DataType1, DataType2> : BaseObject
     {
-        string getClassType();
+        //string getClassType();
         int getListSize();
         bool addTupleToList(Tuple<DataType1, DataType2> insertedData);
         Tuple<DataType1, DataType2> getValueAt(int index);

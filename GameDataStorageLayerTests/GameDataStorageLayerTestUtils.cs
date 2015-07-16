@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Linq;
@@ -93,6 +94,21 @@ namespace GameDataStorageLayerTests
             string tPath = path.Replace("/", ":");
             dataDict.TryAdd(tPath, tObject);
             return dataDict;
+        }
+
+        public static byte[] getSampleCharacterFromXML()
+        {
+            string contents = "";
+            try
+            {
+                contents = File.ReadAllText("F:\\SampleCharacter\\sample character.xml");
+                return System.Text.Encoding.UTF8.GetBytes(contents);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error with opening file {0}" + ex.Message);
+            }
+            return null;
         }
     }
 }

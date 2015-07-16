@@ -16,6 +16,11 @@ namespace GameDataStorageLayer
         private List<Tuple<DataType1, DataType2>> dataList;
         private GameDataStorageLayerUtils.objectClassType classType;
 
+        //public static BaseGameDataStorageObject<DataType1,DataType2> Create<DataType1,DataType2>(GameDataStorageLayerUtils.objectClassType typeOfObject, Tuple<DataType1, DataType2> dt)
+        //{
+         //   return new BaseGameDataStorageObject<DataType1,DataType2>(typeOfObject);
+        //}
+
         public BaseGameDataStorageObject(GameDataStorageLayerUtils.objectClassType typeOfObject)
         {
             this.classType = typeOfObject;

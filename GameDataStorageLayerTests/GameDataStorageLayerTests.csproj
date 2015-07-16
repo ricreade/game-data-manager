@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="GameDataStorageLayerTest.cs" />
     <Compile Include="GameDataStorageLayerTests.cs" />
     <Compile Include="GameDataStorageLayerTestUtils.cs" />
     <Compile Include="GameDataStorageManagementTest.cs" />

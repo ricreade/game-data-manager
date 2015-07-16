@@ -45,10 +45,13 @@
     <Compile Include="BaseDataStorageObject.cs" />
     <Compile Include="BaseGameDataStorageLayer.cs" />
     <Compile Include="BaseGameObject.cs" />
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="GameDataStorageLayerClass.cs" />
     <Compile Include="GameDataStorageLayerUtils.cs" />
     <Compile Include="GameDataStorageManagement.cs" />
     <Compile Include="GameDataStorageManager.cs" />
     <Compile Include="GameDataStorageObject.cs" />
+    <Compile Include="IGameDataStorageLayer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
