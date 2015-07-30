@@ -26,7 +26,5 @@ namespace ScriptingEngine
         /// Returns the name of the script class to instantiate.
         /// </summary>
         string ScriptClassName { get; }
-
-
     }
 }

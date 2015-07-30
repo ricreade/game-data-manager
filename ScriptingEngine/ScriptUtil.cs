@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CSScriptLibrary;
+using GameDataStorageLayer;
 
 namespace ScriptingEngine
 {
@@ -181,16 +182,19 @@ namespace ScriptingEngine
 
             public string Instruction
             {
+                set { _instr = value; }
                 get { return _instr; }
             }
 
             public string ScriptName
             {
+                set { _script = value; }
                 get { return _script; }
             }
 
             public string ScriptClassName
             {
+                set { _class = value; }
                 get { return _class; }
             }
         }
