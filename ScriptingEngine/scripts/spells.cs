@@ -11,6 +11,7 @@ public class Spells : IScriptInstance
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
         string[] requestArgs = request.Instruction.Split('|');
+        IScriptResult saveResult = null;
         
         for (int i = 0; i < requestArgs.Length; i++)
         {
@@ -18,16 +19,26 @@ public class Spells : IScriptInstance
             switch (arg[0])
             {
                 case "agent":
+                    // Get the spell being cast
                     break;
                 case "source":
+                    // Get the caster
                     break;
                 case "targets":
+                    // Get the list of targets
                     break;
+                case "options":
+                    // Get the casting options applied to this spell
                 default:
                     break;
             }
         }
-        // get the originator of the action
+
+        // If this spell allows a save, perform the appropriate check.
+        if (true)
+        {
+            saveResult = ScriptUtil.ExecuteRequest(ScriptUtil.CreateRequest("", "checks"));
+        }
 
 
         return ScriptUtil.CreateResult(ScriptResult.ResultType.Success, null);
