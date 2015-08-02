@@ -9,17 +9,29 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ScriptingEngineTests
 {
+    /// <summary>
+    /// Represents a concrete collection of data objects that represent discrete game entities.
+    /// </summary>
     public class PrototypeDataLayer
     {
         private ConcurrentDictionary<string, PrototypeDataObject> _dict;
-        //private const string _INPUT = @"E:\D&D Programs\Development Notes\diagrams\samp data\sample tuples.xlsm";
-
+        
+        /// <summary>
+        /// Instantiates a new data object collection using all data files stored in the specified 
+        /// directory.
+        /// </summary>
+        /// <param name="dataDir">The directory containing the data files.</param>
         public PrototypeDataLayer(DirectoryInfo dataDir)
         {
             _dict = new ConcurrentDictionary<string, PrototypeDataObject>();
             populateDictionary(dataDir);
         }
 
+        /// <summary>
+        /// Iterates through all files in the specified data directory and constructs data objects
+        /// from each file.  The data objects are then added to the internal dictionary.
+        /// </summary>
+        /// <param name="dataDir">The directory containing the data files.</param>
         private void populateDictionary(DirectoryInfo dataDir)
         {
             PrototypeDataObject dataobj;
@@ -40,6 +52,9 @@ namespace ScriptingEngineTests
             }
         }
 
+        /// <summary>
+        /// Getter method for the internal dictionary.
+        /// </summary>
         public ConcurrentDictionary<string, PrototypeDataObject> Library
         {
             get { return _dict; }

@@ -53,5 +53,28 @@ namespace ScriptingEngineTests
 
             Assert.AreEqual<ScriptResult.ResultType>(ScriptResult.ResultType.Success, result.Result);
         }
+
+        /// <summary>
+        /// Retrieves all values associated with a key in the data object.
+        /// </summary>
+        [TestMethod]
+        public void TestScriptGetMultipleValues()
+        {
+            const string skillIds = "0x486ea1f 4 racial   // Hide|" + 
+                                    "0x6451ead 2 racial   // Climb|" + 
+                                    "0x0054a91 2 racial   // Move silently|" + 
+                                    "0x071a965 2 racial   // Jump";
+
+            PrototypeDataLayer datalayer = new PrototypeDataLayer(new System.IO.DirectoryInfo(DIR_PATH));
+            PrototypeDataObject race;
+            datalayer.Library.TryGetValue("0x99481e3", out race);
+            string[] skills = race.getAllValues("skill");
+
+            Assert.IsTrue(skills.Length == 4);
+            for (int i = 0; i < skills.Length; i++)
+            {
+                Assert.IsTrue(skillIds.Contains(skills[i]));
+            }
+        }
     }
 }
