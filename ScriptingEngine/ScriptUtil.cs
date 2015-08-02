@@ -130,6 +130,9 @@ namespace ScriptingEngine
         {
             IScriptInstance inst;
 
+            if (className == null || className.Equals(""))
+                return GetScriptObject(scriptName);
+
             inst = CSScript.Load(scriptName)
                 .CreateInstance(className)
                 .AlignToInterface<IScriptInstance>();

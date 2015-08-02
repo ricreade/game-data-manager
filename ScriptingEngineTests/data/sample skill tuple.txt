@@ -1,0 +1,54 @@
+id          0x02a7900
+type        skill
+name        Disable Device
+dscr        The disable device skill.
+
+id          0x0054a91
+type        skill
+name        Move Silently
+dscr        The move silently skill.
+
+id          0x486ea1f
+type        skill
+name        Hide
+dscr        The hide skill.
+
+id          0x009a157
+type        skill
+name        Spot
+dscr        The spot skill
+
+id          0x88a157a
+type        skill
+name        Listen
+dscr        The listen skill
+
+id          0x9587dda
+type        skill
+name        Search
+dscr        The search skill
+
+id          0x0009e12
+type        skill
+name        Open Lock
+dscr        The open lock skill
+
+id          0x0087198
+type        skill
+name        Use Magic Device
+dscr        The use magic device skill
+
+id          0x9018e12
+type        skill
+name        Sleight of Hand
+dscr        The sleight of hand skill
+
+id          0x6451ead
+type        skill
+name        Climb
+dscr        The climb skill
+
+id          0x071a965
+type        skill
+name        Jump
+dscr        The jump skill

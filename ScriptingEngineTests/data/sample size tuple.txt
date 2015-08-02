@@ -1,0 +1,6 @@
+id          0x00861f1
+type        size
+name        small
+maxload     0.75 adj       // Adjust normal maximum load by 3/4.
+amrbns      1 size
+attack      1 size

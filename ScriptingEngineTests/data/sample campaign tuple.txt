@@ -1,0 +1,4 @@
+id          0x9a51d6
+type        campaign
+name        Some campaign name
+owner       0x7d9e01    // Richard Reade

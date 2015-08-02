@@ -1,0 +1,15 @@
+id          0x004029e
+type        special
+name        Sneak Attack
+dmg         1d6
+dscr        The sneak attack special ability with cumulative damage bonuses.
+
+id          0x078115d
+type        special
+name        Trapfinding
+dscr        Ability to spot difficult traps.
+
+id          0x04148ad
+type        special
+name        Evasion
+dscr        Ability to take only half damage on a successful reflex save.

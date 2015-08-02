@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,29 +12,37 @@ namespace ScriptingEngineTests
     public class PrototypeDataLayer
     {
         private ConcurrentDictionary<string, PrototypeDataObject> _dict;
-        private const string _INPUT = @"E:\D&D Programs\Development Notes\diagrams\samp data\sample tuples.xlsm";
+        //private const string _INPUT = @"E:\D&D Programs\Development Notes\diagrams\samp data\sample tuples.xlsm";
 
-        public PrototypeDataLayer()
+        public PrototypeDataLayer(DirectoryInfo dataDir)
         {
             _dict = new ConcurrentDictionary<string, PrototypeDataObject>();
-            populateDictionary();
+            populateDictionary(dataDir);
         }
 
-        private void populateDictionary()
+        private void populateDictionary(DirectoryInfo dataDir)
         {
             PrototypeDataObject dataobj;
-            Excel.Application xlApp = new Excel.Application();
-            Excel.Workbook wkbk = xlApp.Workbooks.Open(_INPUT);
-            foreach (Excel.Worksheet wkst in wkbk.Worksheets)
+            string id;
+
+            if (dataDir == null || !dataDir.Exists){
+                throw new ArgumentException("A data source reference was not provided.");
+            }
+
+            foreach (FileInfo file in dataDir.GetFiles())
             {
-                dataobj = new PrototypeDataObject(wkst);
-                string id = dataobj.getValue("id");
-                if (id != null)
+                dataobj = new PrototypeDataObject(file);
+                id = dataobj.getValue("id");
+                if (id != null && id.Length > 0)
                 {
                     _dict.TryAdd(id, dataobj);
                 }
             }
+        }
 
+        public ConcurrentDictionary<string, PrototypeDataObject> Library
+        {
+            get { return _dict; }
         }
     }
 }

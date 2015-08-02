@@ -1,0 +1,21 @@
+id          0x99481e3
+type        race
+name        Halfling
+dscr        This is the halfling description
+attack      1 racial descriptor:thrown
+attack      1 racial item:sling
+attr-str    -2 racial
+attr-dex    2 racial
+fvr-cls     0x8f00f1       // Rogue
+lang        common auto
+lang        halfling auto
+size        0x00861f1      // Small
+will        2 morale descriptor:fear
+fort        1 racial
+reflex      1 racial
+will        1 racial
+speed       20
+skill       0x486ea1f 4 racial   // Hide
+skill       0x6451ead 2 racial   // Climb
+skill       0x0054a91 2 racial   // Move silently
+skill       0x071a965 2 racial   // Jump

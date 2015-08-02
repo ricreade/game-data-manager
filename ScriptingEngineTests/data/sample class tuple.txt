@@ -1,0 +1,10 @@
+id          0x00551a9
+type        class
+name        Rogue
+hd          1d8
+attack      lvl * (3/4) rounddown class      // Not sure the best way to do this, but I'd like to store a formula rather than a hard number.
+fort        lvl / 3 rounddown class
+ref         (lvl + 4) / 2 rounddown class
+will        lvl / 3 rounddown class
+1           0x004029e, 0x078115d // Sneak Attack and Trapfinding
+2           0x04148ad  // Evasion

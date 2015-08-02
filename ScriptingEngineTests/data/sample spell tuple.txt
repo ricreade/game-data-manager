@@ -1,0 +1,15 @@
+id          0x159a753
+type        spell
+script      spells
+name        Fireball
+level       Sorcerer 3
+level       Wizard 3
+cmpnts      V S M
+casttime    1 standard
+range       long
+area        20 ft rad
+duration    instant
+save        ref half
+sr          yes
+dmg         {1d6 * (cl max 10)} fire
+dscr        A <i>fireball</i> spell is an explosion of flame that detonates with a low roar and deals 1d6 points of fire damage per caster level (maximum 10d6) to every creature within the area.  Unattended objects also take this damage.  The explosion creates almost no pressure.

@@ -1,0 +1,5 @@
+id          0x001c9a1
+type        feat
+name        Nimble Fingers
+skill       0x02a7900 2    // Disable Device
+skill       0x0009e12 2    // Open Lock

@@ -62,9 +62,11 @@
     </Content>
     <Compile Include="IScriptTransaction.cs" />
     <Compile Include="ScriptResult.cs" />
-    <Compile Include="scripts\checks.cs" />
+    <Compile Include="scripts\checks.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="scripts\spells.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="ScriptTransaction.cs" />
     <Compile Include="ScriptUtil.cs" />

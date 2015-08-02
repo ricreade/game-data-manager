@@ -1,0 +1,6 @@
+id          0x51e36a
+type        item
+name        short sword
+type        short sword
+wght        2
+dmg-main    1d6 slash

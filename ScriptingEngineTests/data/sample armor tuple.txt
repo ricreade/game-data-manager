@@ -1,0 +1,10 @@
+id          0x7a005e
+type        item
+name        leather armor
+type        leather
+maxdex      6
+splfail     0.1
+amrchk      0
+amrcat      light
+wght        15
+amrbns      2 armor

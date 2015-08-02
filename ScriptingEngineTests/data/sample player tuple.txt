@@ -1,0 +1,6 @@
+id          0x7d9e01
+type        player  
+name        Richard Reade
+email       ricreade@gmail.com
+char        0x053d7a
+char        0x07e960
