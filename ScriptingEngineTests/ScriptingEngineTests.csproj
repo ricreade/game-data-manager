@@ -61,7 +61,7 @@
     <Compile Include="PrototypeDataObject.cs" />
     <Compile Include="ScriptTransactionTests.cs" />
     <Compile Include="ScriptUtilTests.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="ScriptDieRollTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PrototypeDataTests.cs" />
   </ItemGroup>
