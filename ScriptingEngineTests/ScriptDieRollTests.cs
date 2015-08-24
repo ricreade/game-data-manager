@@ -259,8 +259,7 @@ namespace ScriptingEngineTests
         /// <returns></returns>
         private string[] GetResultStringList(string resultList)
         {
-            return resultList.Split(ScriptUtil.SeparatorArray, 
-                StringSplitOptions.RemoveEmptyEntries);
+            return ScriptUtil.SplitScriptString(resultList);
         }
 
         /// <summary>

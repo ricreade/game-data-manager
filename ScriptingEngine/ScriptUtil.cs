@@ -33,20 +33,25 @@ namespace ScriptingEngine
         }
 
         /// <summary>
-        /// Separator array for use in splitting instructions as appropriate
-        /// for script processing using the String.Split method.
-        /// </summary>
-        public static string[] SeparatorArray
-        {
-            get { return _sepseq; }
-        }
-
-        /// <summary>
         /// Separator string value for use in creating separated string values.
         /// </summary>
         public static string Separator
         {
             get { return _sepseq[0]; }
+        }
+
+        /// <summary>
+        /// Splits the specified string using the system delimiter.  This method is
+        /// used to process strings submitted to, or retrieved from, a system script.
+        /// This method is preferred to manually applying the separator because it
+        /// avoids unnecessary array construction.
+        /// </summary>
+        /// <param name="args">The string to split.</param>
+        /// <returns>An array of strings created by splitting the input string using
+        /// the system delimiter.</returns>
+        public static string[] SplitScriptString(string args)
+        {
+            return args.Split(_sepseq, StringSplitOptions.RemoveEmptyEntries);
         }
 
         /// <summary>

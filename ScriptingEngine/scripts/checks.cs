@@ -11,15 +11,15 @@
 /// against an environmental DC (such as defeating a trap or swimming against
 /// current) the source is the one making the check and the target is the
 /// given DC.
+/// 
 /// </summary>
 public class Checks : IScriptInstance
 {
 
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
-        string[] requestArgs = request.Instruction.Split('|');
-        string check = null;
-        string opts = null;
+        string[] requestArgs = ScriptUtil.SplitScriptString(request.Instruction);
+        string check = "", source = "", target = "", opts = "";
 
         for (int i = 0; i < requestArgs.Length; i++)
         {
@@ -28,20 +28,22 @@ public class Checks : IScriptInstance
             {
                 case "check":
                     // Get the kind of check to perform
-                    check = arg[1];
+                    check = arg[0];
                     break;
 
                 case "source":
                     // Get the attacker
+                    source = arg[1];
                     break;
 
                 case "target":
                     // Get the defender
+                    target = arg[2];
                     break;
 
                 case "options":
                     // Get the options applied to this check.
-                    opts = arg[1];
+                    opts = arg[3];
                     break;
 
                 default:

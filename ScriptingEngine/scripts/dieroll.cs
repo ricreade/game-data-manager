@@ -43,7 +43,7 @@ public class DieRoll : IScriptInstance
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
         Dictionary<string, int> results = new Dictionary<string, int>();
-        string[] rolls = request.Instruction.Split(ScriptUtil.SeparatorArray, StringSplitOptions.RemoveEmptyEntries);
+        string[] rolls = ScriptUtil.SplitScriptString(request.Instruction);
         string snumdice, sdiesize, ssign, smodifier, rolltype;
         string finalresult = "";
         int numdice, diesize, modifier, result;
