@@ -32,7 +32,7 @@ public class DieRoll : IScriptInstance
     private Regex _regex;
 
     private const string REG_EXP = 
-        @"^\s*\{(?<numdice>\d+)[Dd](?<diesize>\d+)\s*(?<sign>[\+-])*\s*(?<modifier>\d+)*\s*\}(?<type>\w+(\s+\w*))*$";
+        @"^\s*\{(?<numdice>\d+)[Dd](?<diesize>\d+)\s*((?<sign>[\+-])\s*(?<modifier>\d+))??\s*\}\s*(?<type>\S+(\s+\S+)*)??\s*$";
 
     public DieRoll()
     {
@@ -43,7 +43,7 @@ public class DieRoll : IScriptInstance
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
         Dictionary<string, int> results = new Dictionary<string, int>();
-        string[] rolls = request.Instruction.Split(',');
+        string[] rolls = request.Instruction.Split(ScriptUtil.SeparatorArray, StringSplitOptions.RemoveEmptyEntries);
         string snumdice, sdiesize, ssign, smodifier, rolltype;
         string finalresult = "";
         int numdice, diesize, modifier, result;
@@ -90,7 +90,7 @@ public class DieRoll : IScriptInstance
         }
         while (iter.MoveNext())
         {
-            finalresult += "," + results[iter.Current].ToString();
+            finalresult += ScriptUtil.Separator + results[iter.Current].ToString();
             finalresult += iter.Current.Equals("none") ? "" : " (" + iter.Current + ")";
         }
 

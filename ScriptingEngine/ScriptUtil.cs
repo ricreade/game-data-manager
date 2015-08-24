@@ -21,12 +21,32 @@ namespace ScriptingEngine
     /// </summary>
     public static class ScriptUtil
     {
+        static string[] _sepseq;
+
         /// <summary>
         /// Singleton constructor to initialize the script engine search.
         /// </summary>
         static ScriptUtil()
         {
             CSScript.GlobalSettings.AddSearchDir(@"scripts\");
+            _sepseq = new string[] { "<|>" };
+        }
+
+        /// <summary>
+        /// Separator array for use in splitting instructions as appropriate
+        /// for script processing using the String.Split method.
+        /// </summary>
+        public static string[] SeparatorArray
+        {
+            get { return _sepseq; }
+        }
+
+        /// <summary>
+        /// Separator string value for use in creating separated string values.
+        /// </summary>
+        public static string Separator
+        {
+            get { return _sepseq[0]; }
         }
 
         /// <summary>
