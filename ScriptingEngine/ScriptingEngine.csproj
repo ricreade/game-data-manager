@@ -62,6 +62,9 @@
     </Content>
     <Compile Include="IScriptTransaction.cs" />
     <Compile Include="ScriptResult.cs" />
+    <Compile Include="scripts\abilitymodifier.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="scripts\checks.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

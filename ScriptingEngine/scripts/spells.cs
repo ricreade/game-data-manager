@@ -16,7 +16,8 @@ using PrototypeDataImpl;
 ///                 each will be evaluated independently.
 /// [optionlist]    A comma-delimited list of options that will be applied to this casting.
 ///                 This may include caster level and save DC if no caster id is specified,
-///                 override values for object properties, and ad hoc modifiers.
+///                 override values for object properties, ad hoc modifiers, and effective
+///                 spell level.
 /// </summary>
 public class Spells : IScriptInstance
 {
@@ -25,7 +26,8 @@ public class Spells : IScriptInstance
     {
         string agentid = "", sourceid = "", options = "", instruction, check;
         string[] targetids = null;
-        PrototypeDataObject agent = null;
+        int dc;
+        PrototypeDataObject agent = null, source = null;
         PrototypeDataLayer layer = PrototypeGameStates.Instance.GetLayer(request.DataLayerId);
 
         if (layer == null)
@@ -55,6 +57,7 @@ public class Spells : IScriptInstance
                     break;
                 case "source":
                     sourceid = arg[1];
+                    source = layer.GetDataObject(sourceid);
                     break;
                 case "targets":
                     targetids = ScriptUtil.SplitScriptString(arg[1], ',');
@@ -85,6 +88,7 @@ public class Spells : IScriptInstance
             if (check != null && !check.Equals("none"))
             {
                 check = check.Trim().Split(' ')[0];
+                dc = GetSaveDC(source, agent, options);
                 instruction = string.Format("check={1}{0}source={2}{0}agent={3}{0}target={4}{0}options={5}",
                     ScriptUtil.Separator, check, sourceid, agentid, targetid, options);
                 saveResult = ScriptUtil.ExecuteRequest(ScriptUtil.CreateRequest(instruction, "checks", "test"));
@@ -95,5 +99,22 @@ public class Spells : IScriptInstance
         
 
         return saveResult;
+    }
+
+    /// <summary>
+    /// Returns the save difficulty class (DC) for the spell.  The calculation is
+    /// ability modifier + spell level + 10 + DC bonuses from feats and abilities.
+    /// </summary>
+    /// <param name="caster">The spell caster.</param>
+    /// <param name="spell">The spell</param>
+    /// <param name="options">Casting options.</param>
+    /// <returns>The spell DC value.</returns>
+    private int GetSaveDC(PrototypeDataObject caster, PrototypeDataObject spell, string options)
+    {
+        // Determine the ability score to use.
+        // Get the ability score modifier
+        // Check the options to determine the declared spell level.
+        // Check the caster to find feats or abilities that increase the spell DC for this spell.
+        return 0;
     }
 }
