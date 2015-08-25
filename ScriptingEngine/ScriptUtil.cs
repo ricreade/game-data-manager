@@ -44,7 +44,9 @@ namespace ScriptingEngine
         /// Splits the specified string using the system delimiter.  This method is
         /// used to process strings submitted to, or retrieved from, a system script.
         /// This method is preferred to manually applying the separator because it
-        /// avoids unnecessary array construction.
+        /// avoids unnecessary array construction.  Any empty elements are removed
+        /// from the resulting array, so array position should not be used to identify
+        /// elements.
         /// </summary>
         /// <param name="args">The string to split.</param>
         /// <returns>An array of strings created by splitting the input string using
@@ -55,6 +57,40 @@ namespace ScriptingEngine
         }
 
         /// <summary>
+        /// Splits the specified string using the specified delimiter character.  The
+        /// resulting array will omit any empty elements, so array position should not
+        /// be used to determine specific elements.
+        /// </summary>
+        /// <param name="args">The string to split.</param>
+        /// <param name="delimiter">The delimiter character to use.</param>
+        /// <returns>An array of strings created by splitting the input string using
+        /// the specified delimiter character.</returns>
+        public static string[] SplitScriptString(string args, char delimiter)
+        {
+            return args.Split(new char[] { delimiter }, StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        /// <summary>
+        /// Builds an argument string delimited using the system script delimiter.
+        /// If no arguments were provided, this method returns an empty string.
+        /// </summary>
+        /// <param name="args"></param>
+        /// <returns></returns>
+        public static string CreateDelimitedArgString(params string[] args)
+        {
+            StringBuilder sb = new StringBuilder(args.Length * 2 - 1);
+            if (args.Length > 0){
+                sb.Append(args[0]);
+                for (int i = 1; i < args.Length; i++)
+                {
+                    sb.Append(Separator);
+                    sb.Append(args[i]);
+                }
+            }
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Constructs a script request with the specified instruction and script name.
         /// This request will assume that the script name and class name are identical
         /// (except for case and file extension).
@@ -62,9 +98,9 @@ namespace ScriptingEngine
         /// <param name="instruction">The instruction for the script to process.</param>
         /// <param name="scriptName">The name of the script for the request to invoke.</param>
         /// <returns>A script request instance.</returns>
-        public static IScriptRequest CreateRequest(string instruction, string scriptName)
+        public static IScriptRequest CreateRequest(string instruction, string scriptName, string layerId)
         {
-            return new ScriptRequestInst(instruction, scriptName, null);
+            return new ScriptRequestInst(instruction, scriptName, null, layerId);
         }
 
         /// <summary>
@@ -76,9 +112,9 @@ namespace ScriptingEngine
         /// <param name="className">The name of the script class responsible for processing
         /// the request.</param>
         /// <returns>A script request instance.</returns>
-        public static IScriptRequest CreateRequest(string instruction, string scriptName, string className)
+        public static IScriptRequest CreateRequest(string instruction, string scriptName, string className, string layerId)
         {
-            return new ScriptRequestInst(instruction, scriptName, className);
+            return new ScriptRequestInst(instruction, scriptName, className, layerId);
         }
 
         /// <summary>
@@ -200,12 +236,14 @@ namespace ScriptingEngine
             string _instr;
             string _script;
             string _class;
+            string _layerid;
 
-            public ScriptRequestInst(string instruction, string scriptName, string className)
+            public ScriptRequestInst(string instruction, string scriptName, string className, string layerId)
             {
                 _instr = instruction;
                 _script = scriptName;
                 _class = className;
+                _layerid = layerId;
             }
 
             public string Instruction
@@ -224,6 +262,12 @@ namespace ScriptingEngine
             {
                 set { _class = value; }
                 get { return _class; }
+            }
+
+            public string DataLayerId
+            {
+                set { _layerid = value; }
+                get { return _layerid; }
             }
         }
 

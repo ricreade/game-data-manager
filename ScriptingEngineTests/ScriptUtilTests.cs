@@ -127,7 +127,7 @@ namespace GameDataManagerTests
             string instr = "This is an instruction with a pre-defined statement.";
             string script = "This is a script file name.";
 
-            IScriptRequest request = ScriptUtil.CreateRequest(instr, script);
+            IScriptRequest request = ScriptUtil.CreateRequest(instr, script, "test");
 
             Assert.AreEqual<string>(instr, request.Instruction);
             Assert.AreEqual<string>(script, request.ScriptName);
@@ -146,7 +146,7 @@ namespace GameDataManagerTests
             string script = "myscript.cs";
             string classname = "MyScript";
 
-            IScriptRequest request = ScriptUtil.CreateRequest(instr, script, classname);
+            IScriptRequest request = ScriptUtil.CreateRequest(instr, script, classname, "test");
 
             Assert.AreEqual<string>(instr, request.Instruction);
             Assert.AreEqual<string>(script, request.ScriptName);
@@ -217,6 +217,32 @@ namespace GameDataManagerTests
             request = trans.GetRequest(true);
 
             Assert.IsNull(request);
+        }
+
+        /// <summary>
+        /// Verifies that the ScriptUtil.CreateDelimitedArgString and
+        /// ScriptUtil.SplitScriptString function as expected.
+        /// </summary>
+        [TestMethod]
+        public void TestDelimitedArgString()
+        {
+            string expected = string.Format(
+                "agent=testagent{0}target=testtarget,othertarget{0}source=somesource{0}options=someoptions", ScriptUtil.Separator);
+            string[] args = new string[] { 
+                "agent=testagent",
+                "target=testtarget,othertarget",
+                "source=somesource",
+                "options=someoptions"
+            };
+            string result1 = ScriptUtil.CreateDelimitedArgString(args);
+            Assert.AreEqual<string>(expected, result1);
+
+            string[] result2 = ScriptUtil.SplitScriptString(result1);
+
+            for (int i = 0; i < result2.Length; i++)
+            {
+                Assert.AreEqual<string>(args[i], result2[i]);
+            }
         }
     }
 }

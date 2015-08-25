@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScriptingEngineTests
+namespace PrototypeDataImpl
 {
     /// <summary>
     /// A simple prototype data object composed of a list of tuples.  Records stored in this data object

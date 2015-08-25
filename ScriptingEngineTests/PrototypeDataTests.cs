@@ -1,13 +1,15 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ScriptingEngine;
+using PrototypeDataImpl;
+
 
 namespace ScriptingEngineTests
 {
     [TestClass]
     public class PrototypeDataTests
     {
-        const string DIR_PATH = @"../../../ScriptingEngineTests/data/";
+        const string DIR_PATH = @"../../../PrototypeDataImpl/data/";
 
         /// <summary>
         /// The implementation can read from the data store without errors.
@@ -44,14 +46,21 @@ namespace ScriptingEngineTests
         {
             IScriptRequest request;
             IScriptResult result;
-            string instr = "agent=0x159a753|source=|target=0x053d7a|options=cl10,ref15";
+            string instr = ScriptUtil.CreateDelimitedArgString(
+                "agent=0x159a753", 
+                "source=", 
+                "targets=0x053d7a", 
+                "options=cl 10,dc 15"
+                );
+            //string instr = "agent=0x159a753|source=|target=0x053d7a|options=cl10,ref15";
             PrototypeDataLayer datalayer = new PrototypeDataLayer(new System.IO.DirectoryInfo(DIR_PATH));
+            PrototypeGameStates.Instance.RegisterLayer(datalayer);
 
-            request = ScriptUtil.CreateRequest(instr, "spells");
+            request = ScriptUtil.CreateRequest(instr, "spells", "test");
 
             result = ScriptUtil.ExecuteRequest(request);
 
-            Assert.AreEqual<ScriptResult.ResultType>(ScriptResult.ResultType.Success, result.Result);
+            Assert.AreEqual<ScriptResult.ResultType>(ScriptResult.ResultType.Success, result.Result, result.Message);
         }
 
         /// <summary>

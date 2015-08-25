@@ -1,4 +1,6 @@
-﻿using ScriptingEngine;
+﻿using System;
+using ScriptingEngine;
+using PrototypeDataImpl;
 
 /// <summary>
 /// Hands checks between a source and a target.  The source is always the
@@ -11,7 +13,14 @@
 /// against an environmental DC (such as defeating a trap or swimming against
 /// current) the source is the one making the check and the target is the
 /// given DC.
-/// 
+/// For example, to make a check on a reflex save for a spell, the syntax
+/// is: 
+/// check=ref[sep]source=[casterid][sep]agent=[spellid][sep]target=[targetid]
+///     [sep]options=[optionslist]
+/// where [sep] is the system separater, [casterid] is the object id of the
+/// caster, [spellid] is the object id of the spell [targetid] is the object 
+/// id of the target, and [optionslist] is a comma-delimited list of options 
+/// for the check.
 /// </summary>
 public class Checks : IScriptInstance
 {
@@ -19,7 +28,12 @@ public class Checks : IScriptInstance
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
         string[] requestArgs = ScriptUtil.SplitScriptString(request.Instruction);
-        string check = "", source = "", target = "", opts = "";
+        string[] optsList = null, option = null;
+        string check = "", sourceid = "", agentid = "", targetid = "", opts = "";
+        int dc = -1;
+
+        PrototypeDataObject source = null, agent = null, target = null;
+        PrototypeDataLayer layer = PrototypeGameStates.Instance.GetLayer(request.DataLayerId);
 
         for (int i = 0; i < requestArgs.Length; i++)
         {
@@ -28,32 +42,84 @@ public class Checks : IScriptInstance
             {
                 case "check":
                     // Get the kind of check to perform
-                    check = arg[0];
+                    check = arg[1];
                     break;
 
                 case "source":
                     // Get the attacker
-                    source = arg[1];
+                    sourceid = arg[1];
+                    source = layer.GetDataObject(sourceid);
+                    break;
+
+                case "agent":
+                    // Get the spell
+                    agentid = arg[1];
+                    agent = layer.GetDataObject(agentid);
                     break;
 
                 case "target":
                     // Get the defender
-                    target = arg[2];
+                    targetid = arg[1];
+                    target = layer.GetDataObject(targetid);
                     break;
 
                 case "options":
                     // Get the options applied to this check.
-                    opts = arg[3];
+                    opts = arg[1];
+                    optsList = ScriptUtil.SplitScriptString(opts, ',');
                     break;
 
                 default:
-                    break;
+                    return ScriptUtil.CreateResult(
+                        ScriptResult.ResultType.Fail,
+                        string.Format("Unknown argument '{0}' in request: '{1}'", arg[0], request.Instruction)
+                        );
+            }
+        }
+
+        if (agent == null)
+            return ScriptUtil.CreateResult(
+                ScriptResult.ResultType.Fail,
+                string.Format("Agent not found.")
+                );
+
+        if (target == null)
+            return ScriptUtil.CreateResult(
+                ScriptResult.ResultType.Fail,
+                string.Format("Target not found.")
+                );
+
+        if (source == null)
+        {
+            if (optsList != null)
+            {
+                for (int i = 0; i < optsList.Length; i++)
+                {
+                    option = ScriptUtil.SplitScriptString(optsList[i], ' ');
+                    if (option != null && option.Length == 2 && option[0] == "dc")
+                    {
+                        int val;
+                        if (Int32.TryParse(option[1], out val))
+                        {
+                            dc = val;
+                        }
+                    }
+                }
+            }
+            if (dc == -1)
+            {
+                return ScriptUtil.CreateResult(
+                    ScriptResult.ResultType.Fail,
+                    string.Format("Cannot determine save DC.")
+                    );
             }
         }
 
         switch (check)
         {
-            case "save":
+            case "fort":
+            case "ref":
+            case "will":
                 return Save(null, null, opts);
 
             case "skill":

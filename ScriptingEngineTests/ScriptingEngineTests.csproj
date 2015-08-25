@@ -57,8 +57,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PrototypeDataLayer.cs" />
-    <Compile Include="PrototypeDataObject.cs" />
     <Compile Include="ScriptTransactionTests.cs" />
     <Compile Include="ScriptUtilTests.cs" />
     <Compile Include="ScriptDieRollTests.cs" />
@@ -66,6 +64,10 @@
     <Compile Include="PrototypeDataTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PrototypeDataImpl\PrototypeDataImpl.csproj">
+      <Project>{ce0a40a2-adb3-4b21-967f-cd95efd0ea21}</Project>
+      <Name>PrototypeDataImpl</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ScriptingEngine\ScriptingEngine.csproj">
       <Project>{0902ac74-4e0a-4d6e-81e6-83d42481a9ba}</Project>
       <Name>ScriptingEngine</Name>
@@ -73,44 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="data\sample armor tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample campaign tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample character tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample class tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample feat tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample player tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample race tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample size tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample skill tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample special ability tuples.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample spell tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="data\sample weapon tuple.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

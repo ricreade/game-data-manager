@@ -276,7 +276,7 @@ namespace ScriptingEngineTests
                 IScriptRequest[] requests = new IScriptRequest[instructions.Length];
                 for (int i = 0; i < instructions.Length; i++)
                 {
-                    requests[i] = ScriptUtil.CreateRequest(instructions[i], SCRIPT_NAME);
+                    requests[i] = ScriptUtil.CreateRequest(instructions[i], SCRIPT_NAME, "test");
                 }
                 return requests;
             }

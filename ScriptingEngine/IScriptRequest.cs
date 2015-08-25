@@ -26,5 +26,10 @@ namespace ScriptingEngine
         /// Returns the name of the script class to instantiate.
         /// </summary>
         string ScriptClassName { get; }
+
+        /// <summary>
+        /// The data layer id against which the request should be executed.
+        /// </summary>
+        string DataLayerId { get; }
     }
 }

@@ -83,6 +83,10 @@
       <Project>{241f00bb-9458-4baa-910e-d9a0612c3984}</Project>
       <Name>GameDataStorageLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PrototypeDataImpl\PrototypeDataImpl.csproj">
+      <Project>{ce0a40a2-adb3-4b21-967f-cd95efd0ea21}</Project>
+      <Name>PrototypeDataImpl</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
