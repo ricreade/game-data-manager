@@ -7,27 +7,29 @@ using PrototypeDataImpl;
 /// given to spell resistance, saving throws, target validity, etc.
 /// The input request must satisfy the syntax:
 /// 
-/// agent=[agentid][sep]source=[casterid][sep]targets=[targetids][sep]options=[optionlist]
+/// agent=[agentid][sep]source=[casterid][sep]castas=[castas][sep]targets=[targetids][sep]options=[optionlist]
 /// 
 /// [agentid]       The id value of the spell being cast.
 /// [casterid]      The id value of the spell caster.  If this is empty, the caster level
 ///                 and save DC must be specified in the option list.
+/// [castas]        The id of the class used to cast the spell.  This setting allows the
+///                 application to differentiate between multiple classes capable of casting
+///                 the same spell.
 /// [targetids]     A comma-delimited list of target ids that will be subject to this spell.
 ///                 each will be evaluated independently.
 /// [optionlist]    A comma-delimited list of options that will be applied to this casting.
 ///                 This may include caster level and save DC if no caster id is specified,
-///                 override values for object properties, ad hoc modifiers, and effective
-///                 spell level.
+///                 override values for object properties, and ad hoc modifiers.
 /// </summary>
 public class Spells : IScriptInstance
 {
 
     public IScriptResult ProcessRequest(IScriptRequest request)
     {
-        string agentid = "", sourceid = "", options = "", instruction, check;
+        string agentid = "", sourceid = "", options = "", castasid = "", instruction, check;
         string[] targetids = null;
         int dc;
-        PrototypeDataObject agent = null, source = null;
+        PrototypeDataObject agent = null, source = null, castas = null;
         PrototypeDataLayer layer = PrototypeGameStates.Instance.GetLayer(request.DataLayerId);
 
         if (layer == null)
@@ -59,6 +61,10 @@ public class Spells : IScriptInstance
                     sourceid = arg[1];
                     source = layer.GetDataObject(sourceid);
                     break;
+                case "castas":
+                    castasid = arg[1];
+                    castas = layer.GetDataObject(castasid);
+                    break;
                 case "targets":
                     targetids = ScriptUtil.SplitScriptString(arg[1], ',');
                     break;
@@ -79,6 +85,14 @@ public class Spells : IScriptInstance
                 string.Format("Agent not found.")
                 );
 
+        if (castas == null)
+            return ScriptUtil.CreateResult(
+                ScriptResult.ResultType.Fail,
+                string.Format("Missing spellcasting class.")
+                );
+
+        dc = GetSaveDC(source, agent, castas, options);
+
         foreach (string targetid in targetids)
         {
             // If this spell allows spell resistence, perform the appropriate check.
@@ -88,7 +102,6 @@ public class Spells : IScriptInstance
             if (check != null && !check.Equals("none"))
             {
                 check = check.Trim().Split(' ')[0];
-                dc = GetSaveDC(source, agent, options);
                 instruction = string.Format("check={1}{0}source={2}{0}agent={3}{0}target={4}{0}options={5}",
                     ScriptUtil.Separator, check, sourceid, agentid, targetid, options);
                 saveResult = ScriptUtil.ExecuteRequest(ScriptUtil.CreateRequest(instruction, "checks", "test"));
@@ -109,10 +122,14 @@ public class Spells : IScriptInstance
     /// <param name="spell">The spell</param>
     /// <param name="options">Casting options.</param>
     /// <returns>The spell DC value.</returns>
-    private int GetSaveDC(PrototypeDataObject caster, PrototypeDataObject spell, string options)
+    private int GetSaveDC(PrototypeDataObject caster, PrototypeDataObject spell, PrototypeDataObject castas, string options)
     {
         // Determine the ability score to use.
+        string ability = castas.getValue("castabil");
+
         // Get the ability score modifier
+
+
         // Check the options to determine the declared spell level.
         // Check the caster to find feats or abilities that increase the spell DC for this spell.
         return 0;

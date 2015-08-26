@@ -1,0 +1,10 @@
+﻿id          0x00541a9
+type        class
+name        Wizard
+hd          1d4
+attack      lvl / 2 rounddown class
+fort        lvl / 3 rounddown class
+ref         lvl / 3 rounddown class
+will        (lvl + 4) / 2 rounddown class
+castabil	int
+3-spell     0x159a753
