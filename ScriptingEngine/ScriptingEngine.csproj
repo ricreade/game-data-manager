@@ -65,7 +65,7 @@
     <Compile Include="scripts\abilitymodifier.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="scripts\characterstat.cs" />
+    <Compile Include="scripts\gamobjectstat.cs" />
     <Compile Include="scripts\checks.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
